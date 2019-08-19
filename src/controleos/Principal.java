@@ -5,6 +5,7 @@
  */
 package controleos;
 
+import controleos.View.NovaOS;
 import java.awt.Component;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
