@@ -270,7 +270,7 @@ public class NovaOS extends javax.swing.JFrame {
         if(!txtIdCli.getText().equals(null)){
 
                 }else if(!txtNomeCli.getText().equals(null)){
-                    new NewOS()
+                    //new NewOS()
                 }else 
                     if(!txtCPF.getText().equals(null)){
 
