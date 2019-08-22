@@ -179,7 +179,7 @@ public class ConnectDB {
 	try {
             String sql="SELECT id, nome, cpf, dataNascimento, endereco, cidade, numero, cep, telefone, celular";
 	
-                sql += " FROM cliente WHERE " + parametro + " = " + pesquisa + ";";
+                sql += " FROM cliente WHERE " + parametro +  pesquisa + ";";
 					
                 PreparedStatement stmt = bd.con.prepareStatement(sql);
 		

@@ -270,14 +270,8 @@
         <Component class="javax.swing.JTextField" name="txtCodCli4">
         </Component>
         <Component class="javax.swing.JTextField" name="txtNomeCli4">
-          <Properties>
-            <Property name="editable" type="boolean" value="false"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCpfCli4">
-          <Properties>
-            <Property name="editable" type="boolean" value="false"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblCod4">
           <Properties>

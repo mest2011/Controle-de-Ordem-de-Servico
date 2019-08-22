@@ -98,10 +98,6 @@ public class ConsultaCliente extends javax.swing.JFrame {
 
         lblDateOfBirth4.setText("Data de nascimento:");
 
-        txtNomeCli4.setEditable(false);
-
-        txtCpfCli4.setEditable(false);
-
         lblCod4.setText("Código:");
 
         lblName4.setText("Nome:");
@@ -349,24 +345,26 @@ public class ConsultaCliente extends javax.swing.JFrame {
         String pesquisa = "", 
                parametro = "",
                cpf = txtCpfCli4.getText(),
+               nome = txtNomeCli4.getText(),
                dados[][] = null,
                selecaoDeUsuario="",
                strJOption=""; 
                              
         if(!txtCodCli4.getText().equals("")){
-            pesquisa = txtCodCli4.getText();
+            pesquisa = " = " + txtCodCli4.getText();
             parametro = "id";
         }else{
             if(!txtNomeCli4.getText().equals("")){
-                pesquisa = "'"+ txtNomeCli4.getText() + "'";
+                pesquisa = " LIKE " + "'%"+ txtNomeCli4.getText() + "%'";
                 parametro = "nome";
             }else{
                 if(!cpf.equals("") || cpf.length() == 12){
-                    pesquisa = cpf;
+                    pesquisa = " = " + cpf;
                     parametro = "cpf";
                 }
             }
         }
+        
         if(pesquisa.equals("")) 
             JOptionPane.showMessageDialog(null, "Insira um valor para pesquisa!", "Campos em branco", JOptionPane.ERROR_MESSAGE);
         else{
@@ -382,6 +380,7 @@ public class ConsultaCliente extends javax.swing.JFrame {
             }   
         }
         int parametroGravacao=Integer.parseInt(selecaoDeUsuario)-1;
+        
         if(!"".equals(selecaoDeUsuario)){
             txtCodCli4.setText(dados[1][parametroGravacao]);
             txtNomeCli4.setText(dados[2][parametroGravacao]);
@@ -507,8 +506,8 @@ public class ConsultaCliente extends javax.swing.JFrame {
             
             
        txtCodCli4.setEditable(true);
-       txtNomeCli4.setEditable(false);
-       txtCpfCli4.setEditable(false);
+       txtNomeCli4.setEditable(true);
+       txtCpfCli4.setEditable(true);
        FtxtDateOfBirdCli4.setEditable(false);
        txtAddreesCli4.setEditable(false);
        txtCityCli4.setEditable(false);
