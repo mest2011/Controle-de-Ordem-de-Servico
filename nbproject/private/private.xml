@@ -3,12 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/mest2/Documents/NetBeansProjects/controleOs/src/controleos/Connect/ConnectDB.java</file>
             <file>file:/C:/Users/mest2/Documents/NetBeansProjects/controleOs/src/controleos/ConnectDB.java</file>
-            <file>file:/C:/Users/mest2/Documents/NetBeansProjects/controleOs/src/controleos/Controller/NewOS.java</file>
-            <file>file:/C:/Users/mest2/Documents/NetBeansProjects/controleOs/src/controleos/ConsultaCliente.java</file>
-            <file>file:/C:/Users/mest2/Documents/NetBeansProjects/controleOs/src/controleos/DAO/NewOsDAO.java</file>
-            <file>file:/C:/Users/mest2/Documents/NetBeansProjects/controleOs/src/controleos/View/NovaOS.java</file>
+            <file>file:/C:/Users/mest2/Documents/NetBeansProjects/controleOs/src/controleos/GerenciamentoDeUsuarios.java</file>
+            <file>file:/C:/Users/mest2/Documents/NetBeansProjects/controleOs/src/controleos/Login.java</file>
+            <file>file:/C:/Users/mest2/Documents/NetBeansProjects/controleOs/src/controleos/NovoCliente.java</file>
         </group>
     </open-files>
 </project-private>

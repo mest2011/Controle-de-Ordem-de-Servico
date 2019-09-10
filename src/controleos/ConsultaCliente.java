@@ -5,7 +5,6 @@
  */
 package controleos;
 
-import java.awt.Component;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -76,12 +75,6 @@ public class ConsultaCliente extends javax.swing.JFrame {
         });
 
         btnSalvar.setText("Salvar");
-        btnSalvar.setEnabled(false);
-        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarActionPerformed(evt);
-            }
-        });
 
         lblConsultaCliente.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         lblConsultaCliente.setText("Consulta de Clientes");
@@ -104,7 +97,7 @@ public class ConsultaCliente extends javax.swing.JFrame {
 
         FtxtDateOfBirdCli4.setEditable(false);
         try {
-            FtxtDateOfBirdCli4.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####/##/##")));
+            FtxtDateOfBirdCli4.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -243,7 +236,6 @@ public class ConsultaCliente extends javax.swing.JFrame {
         });
 
         btnChange.setText("Alterar");
-        btnChange.setEnabled(false);
         btnChange.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnChangeActionPerformed(evt);
@@ -251,12 +243,6 @@ public class ConsultaCliente extends javax.swing.JFrame {
         });
 
         btnDelete.setText("Deletar");
-        btnDelete.setEnabled(false);
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -324,47 +310,31 @@ public class ConsultaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_ftxtPhone4ActionPerformed
 
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
-       txtCodCli4.setEditable(false);
-       txtNomeCli4.setEditable(true);
-       txtCpfCli4.setEditable(true);
-       FtxtDateOfBirdCli4.setEditable(true);
-       txtAddreesCli4.setEditable(true);
-       txtCityCli4.setEditable(true);
-       txtNumberCli4.setEditable(true);
-       ftxtCepCli4.setEditable(true);
-       ftxtPhone4.setEditable(true);
-       ftxtCelPhone4.setEditable(true);
-       
-       btnSalvar.setEnabled(true);
-       btnDelete.setEnabled(true);
-       
-        
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnChangeActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         String pesquisa = "", 
                parametro = "",
                cpf = txtCpfCli4.getText(),
-               nome = txtNomeCli4.getText(),
                dados[][] = null,
                selecaoDeUsuario="",
                strJOption=""; 
                              
         if(!txtCodCli4.getText().equals("")){
-            pesquisa = " = " + txtCodCli4.getText();
+            pesquisa = txtCodCli4.getText();
             parametro = "id";
         }else{
             if(!txtNomeCli4.getText().equals("")){
-                pesquisa = " LIKE " + "'%"+ txtNomeCli4.getText() + "%'";
+                pesquisa = "'"+ txtNomeCli4.getText() + "'";
                 parametro = "nome";
             }else{
                 if(!cpf.equals("") || cpf.length() == 12){
-                    pesquisa = " = " + cpf;
+                    pesquisa = cpf;
                     parametro = "cpf";
                 }
             }
         }
-        
         if(pesquisa.equals("")) 
             JOptionPane.showMessageDialog(null, "Insira um valor para pesquisa!", "Campos em branco", JOptionPane.ERROR_MESSAGE);
         else{
@@ -380,194 +350,22 @@ public class ConsultaCliente extends javax.swing.JFrame {
             }   
         }
         int parametroGravacao=Integer.parseInt(selecaoDeUsuario)-1;
-        
         if(!"".equals(selecaoDeUsuario)){
             txtCodCli4.setText(dados[1][parametroGravacao]);
             txtNomeCli4.setText(dados[2][parametroGravacao]);
             txtCpfCli4.setText(dados[3][parametroGravacao]);
-            FtxtDateOfBirdCli4.setText(new SubstituirCaracteres().apenasNumeros(dados[4][parametroGravacao]));
+            FtxtDateOfBirdCli4.setText(dados[4][parametroGravacao]);
             txtAddreesCli4.setText(dados[5][parametroGravacao]);
             txtCityCli4.setText(dados[6][parametroGravacao]);
             txtNumberCli4.setText(dados[7][parametroGravacao]);
-            ftxtCepCli4.setText(new SubstituirCaracteres().apenasNumeros(dados[8][parametroGravacao]));
+            ftxtCepCli4.setText(dados[8][parametroGravacao]);
             ftxtPhone4.setText(dados[9][parametroGravacao]);
             ftxtCelPhone4.setText(dados[10][parametroGravacao]);
-            
-            btnChange.setEnabled(true);
-           
         }
         
         
         
     }//GEN-LAST:event_btnSearchActionPerformed
-
-    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        boolean campos=true;
-        String[] dadosCliente = new String[10]; 
-        
-        dadosCliente[0]=txtNomeCli4.getText();
-        dadosCliente[1]=txtCpfCli4.getText();
-        dadosCliente[2]=new SubstituirCaracteres().tiraData(FtxtDateOfBirdCli4.getText());
-        dadosCliente[3]=txtAddreesCli4.getText();
-        dadosCliente[4]=txtCityCli4.getText();
-        dadosCliente[5]=txtNumberCli4.getText();
-        dadosCliente[6]=new SubstituirCaracteres().retiraCep(ftxtCepCli4.getText());
-        dadosCliente[7]=ftxtPhone4.getText();
-        dadosCliente[8]=ftxtCelPhone4.getText();
-        dadosCliente[9]=txtCodCli4.getText();
-        
-        if (dadosCliente[0].equals("")) {
-           JOptionPane.showMessageDialog(null, "Insira um nome! \n Campo nome em branco!", "Nome", JOptionPane.ERROR_MESSAGE);
-           campos = false;
-        }else{
-            try {
-                long testaCpf = Long.parseLong(dadosCliente[1]);
-                } catch (Exception e) {
-                    System.out.println(e);
-                  JOptionPane.showMessageDialog(null, "Insira apenas números!", "CPF", JOptionPane.ERROR_MESSAGE);
-                  campos = false;
-                }
-                  if (dadosCliente[1].equals("")) {
-                    JOptionPane.showMessageDialog(null, "Insira um CPF!", "CPF", JOptionPane.ERROR_MESSAGE);
-                    campos = false;
-                }else
-            if (dadosCliente[2].equals("    -  -  ")) {
-            JOptionPane.showMessageDialog(null, "Insira uma data de nascimento!", "Data", JOptionPane.ERROR_MESSAGE);
-            campos = false;
-        }else
-            if (dadosCliente[3].equals("")) {
-            JOptionPane.showMessageDialog(null, "Insira um endereço!", "Endereço", JOptionPane.ERROR_MESSAGE);
-            campos = false;
-        }else
-            if (dadosCliente[4].equals("")) {
-            JOptionPane.showMessageDialog(null, "Insira uma cidade!", "Cidade", JOptionPane.ERROR_MESSAGE);
-            campos = false;
-        }else{
-                try {
-                   long testaNum = Long.parseLong(dadosCliente[5]);
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Insira apenas números!", "Número da casa", JOptionPane.ERROR_MESSAGE);
-                    campos = false;
-                }
-                if (dadosCliente[5].equals("")) {
-                JOptionPane.showMessageDialog(null, "Insira um número!", "Número da casa", JOptionPane.ERROR_MESSAGE);
-                campos = false;
-            }else{
-                    String testaif = new SubstituirCaracteres().apenasNumeros(dadosCliente[6]);
-                try {
-                   long testaCep = Long.parseLong(testaif);
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Insira apenas números!", "Cep", JOptionPane.ERROR_MESSAGE);
-                    campos = false;
-                }
-                if (testaif.equals("")) {
-                JOptionPane.showMessageDialog(null, "Insira um Cep!", "Cep", JOptionPane.ERROR_MESSAGE);
-                campos = false;
-                }else{
-                    try {
-                       long testaFone = Long.parseLong(new SubstituirCaracteres().apenasNumeros(dadosCliente[7]));
-                     } catch (Exception e) {
-                         JOptionPane.showMessageDialog(null, "Insira apenas números!", "Telefone", JOptionPane.ERROR_MESSAGE);
-                         campos = false;
-                     }
-                     if (new SubstituirCaracteres().apenasNumeros(dadosCliente[7]).equals("")) {
-                     JOptionPane.showMessageDialog(null, "Insira um Telefone!", "Telefone", JOptionPane.ERROR_MESSAGE);
-                     campos = false;
-                     }else{
-                        try {
-                            long testaCell = Long.parseLong(new SubstituirCaracteres().apenasNumeros(dadosCliente[8]));
-                         } catch (Exception e) {
-                             JOptionPane.showMessageDialog(null, "Insira apenas números!", "Celular", JOptionPane.ERROR_MESSAGE);
-                             campos = false;
-                         }
-                         if (new SubstituirCaracteres().apenasNumeros(dadosCliente[8]).equals("")) {
-                         JOptionPane.showMessageDialog(null, "Insira um Celular!", "Celular", JOptionPane.ERROR_MESSAGE);
-                         campos = false;
-                         }    
-                      }    
-                }
-        
-            }
-        }        } 
- 
-        
-        if (campos) {
-            new ConnectDB().alterarCliente(dadosCliente);
-            txtCodCli4.setText("");
-            txtNomeCli4.setText("");
-            txtCpfCli4.setText("");
-            FtxtDateOfBirdCli4.setText("");
-            txtAddreesCli4.setText("");
-            txtCityCli4.setText("");
-            txtNumberCli4.setText("");
-            ftxtCepCli4.setText("");
-            ftxtPhone4.setText("");
-            ftxtCelPhone4.setText("");
-            
-            
-       txtCodCli4.setEditable(true);
-       txtNomeCli4.setEditable(true);
-       txtCpfCli4.setEditable(true);
-       FtxtDateOfBirdCli4.setEditable(false);
-       txtAddreesCli4.setEditable(false);
-       txtCityCli4.setEditable(false);
-       txtNumberCli4.setEditable(false);
-       ftxtCepCli4.setEditable(false);
-       ftxtPhone4.setEditable(false);
-       ftxtCelPhone4.setEditable(false);
-       
-       btnSalvar.setEnabled(false);
-       btnDelete.setEnabled(false);
-       btnChange.setEnabled(false);
-        }
-        
-        
-    }//GEN-LAST:event_btnSalvarActionPerformed
-
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        String id=txtCodCli4.getText();
-        
-        
-        Component nulo = null;
-        int resposta = JOptionPane.showConfirmDialog (nulo, "Deseja continuar?" , "Confirmar Logoff" ,
-            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        
-        if (resposta == JOptionPane.NO_OPTION) {
-            System.out.println ( "Botão não clicado" );
-            } else  if (resposta == JOptionPane.YES_OPTION) {
-                new ConnectDB().deleteClient(id);
-                
-                txtCodCli4.setText("");
-                txtNomeCli4.setText("");
-                txtCpfCli4.setText("");
-                FtxtDateOfBirdCli4.setText("");
-                txtAddreesCli4.setText("");
-                txtCityCli4.setText("");
-                txtNumberCli4.setText("");
-                ftxtCepCli4.setText("");
-                ftxtPhone4.setText("");
-                ftxtCelPhone4.setText("");
-            
-            
-                txtCodCli4.setEditable(true);
-                txtNomeCli4.setEditable(false);
-                txtCpfCli4.setEditable(false);
-                FtxtDateOfBirdCli4.setEditable(false);
-                txtAddreesCli4.setEditable(false);
-                txtCityCli4.setEditable(false);
-                txtNumberCli4.setEditable(false);
-                ftxtCepCli4.setEditable(false);
-                ftxtPhone4.setEditable(false);
-                ftxtCelPhone4.setEditable(false);
-
-                btnSalvar.setEnabled(false);
-                btnDelete.setEnabled(false);
-                btnChange.setEnabled(false);
-            System.out.println ( "Botão Sim clicado" );
-            } else  if (resposta == JOptionPane.CLOSED_OPTION) {
-            System.out.println ( "JOptionPane fechado" );
-        }
-    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments

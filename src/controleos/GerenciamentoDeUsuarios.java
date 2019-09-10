@@ -7,6 +7,7 @@ package controleos;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -53,8 +54,6 @@ public class GerenciamentoDeUsuarios extends javax.swing.JFrame {
         txtPassword = new javax.swing.JTextField();
         txtNewPassword = new javax.swing.JTextField();
         txtConfirmPassword = new javax.swing.JTextField();
-        lblHierarchy = new javax.swing.JLabel();
-        cbxHierarchy = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblUserList = new javax.swing.JTable();
@@ -64,8 +63,18 @@ public class GerenciamentoDeUsuarios extends javax.swing.JFrame {
         setTitle("Gerenciamento de Usuários");
 
         btnNewUser.setText("Novo Usuário");
+        btnNewUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewUserActionPerformed(evt);
+            }
+        });
 
         btnEdit.setText("Editar Usuário");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
 
         btnCancel.setText("Cancelar");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -77,6 +86,11 @@ public class GerenciamentoDeUsuarios extends javax.swing.JFrame {
         btnSave.setText("Salvar");
 
         btnDelete.setText("Deletar Usuário");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         lblGeneciaUser.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblGeneciaUser.setText("Gerenciamento de Usuários");
@@ -95,21 +109,27 @@ public class GerenciamentoDeUsuarios extends javax.swing.JFrame {
 
         lblPasswordConfirm.setText("Confirme a Senha:");
 
+        txtCod.setEditable(false);
+
+        txtNameUser.setEditable(false);
+
+        txtLogin.setEditable(false);
         txtLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtLoginActionPerformed(evt);
             }
         });
 
+        txtPassword.setEditable(false);
         txtPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPasswordActionPerformed(evt);
             }
         });
 
-        lblHierarchy.setText("Hierarquia");
+        txtNewPassword.setEditable(false);
 
-        cbxHierarchy.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administrador", "Gerente", "Técnico", "Atendente", " " }));
+        txtConfirmPassword.setEditable(false);
 
         jLabel1.setText("Lista de usuários cadastrados:");
 
@@ -155,7 +175,6 @@ public class GerenciamentoDeUsuarios extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblHierarchy)
                     .addComponent(lblCod)
                     .addComponent(lblNameUser)
                     .addComponent(lblLogin)
@@ -164,14 +183,13 @@ public class GerenciamentoDeUsuarios extends javax.swing.JFrame {
                     .addComponent(lblPasswordConfirm))
                 .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtCod)
+                    .addComponent(txtCod, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
                     .addComponent(txtNameUser)
                     .addComponent(txtLogin)
                     .addComponent(txtPassword)
                     .addComponent(txtNewPassword)
-                    .addComponent(txtConfirmPassword)
-                    .addComponent(cbxHierarchy, 0, 180, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtConfirmPassword))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -206,13 +224,9 @@ public class GerenciamentoDeUsuarios extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblPasswordConfirm)
-                            .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblHierarchy)
-                            .addComponent(cbxHierarchy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         btnSearchUser.setText("Buscar Usuário");
@@ -292,8 +306,17 @@ public class GerenciamentoDeUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPasswordActionPerformed
 
     private void btnSearchUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchUserActionPerformed
-        String[][] dados = new String[4][50];
+        String[][] dados = new String[4][50]; //Buscar Usuario 
         dados = new ConnectDB().searchUser();
+        txtCod.setEditable(true);
+        txtLogin.setEditable(true);
+        txtNameUser.setEditable(true);
+        txtPassword.setEditable(false);
+        txtConfirmPassword.setEditable(false);
+        txtNewPassword.setEditable(false);
+      
+        
+        
         
     /*  
         for(int x=0; x<50; x++){
@@ -330,6 +353,46 @@ public class GerenciamentoDeUsuarios extends javax.swing.JFrame {
             }
         });*/
     }//GEN-LAST:event_btnSearchUserActionPerformed
+
+    private void btnNewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewUserActionPerformed
+        txtNameUser.setEditable(true);
+        txtLogin.setEditable(true);
+        txtPassword.setEditable(true);
+        txtConfirmPassword.setEditable(true);
+        txtNewPassword.setEditable(false);
+        txtCod.setEditable(false);
+        
+    }//GEN-LAST:event_btnNewUserActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // TODO add your handling code here:
+        //Edição de Usuario
+        txtLogin.setEditable(true);
+        txtNewPassword.setEditable(true);
+        txtConfirmPassword.setEditable(true);
+        
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        int clienteExcluir;
+        int resposta ;
+        resposta = JOptionPane.showConfirmDialog(null, "Deseja Deletar ?");
+        System.out.println(resposta);
+        if(resposta==0){
+            //deletar
+            clienteExcluir = Integer.parseInt(txtCod.getText());
+        }
+        if(resposta ==1){
+            //Nao deletar
+        }
+        if(resposta ==2){
+            //cancelar
+        }
+        
+        
+   
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -375,7 +438,6 @@ public class GerenciamentoDeUsuarios extends javax.swing.JFrame {
     private javax.swing.JButton btnNewUser;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSearchUser;
-    private javax.swing.JComboBox cbxHierarchy;
     private javax.persistence.EntityManager entityManager;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
@@ -383,7 +445,6 @@ public class GerenciamentoDeUsuarios extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblCod;
     private javax.swing.JLabel lblGeneciaUser;
-    private javax.swing.JLabel lblHierarchy;
     private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblNameUser;
     private javax.swing.JLabel lblNewPassword;

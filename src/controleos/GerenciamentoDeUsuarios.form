@@ -114,11 +114,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Novo Usu&#xe1;rio"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNewUserActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnEdit">
       <Properties>
         <Property name="text" type="java.lang.String" value="Editar Usu&#xe1;rio"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnCancel">
       <Properties>
@@ -139,6 +145,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Deletar Usu&#xe1;rio"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblGeneciaUser">
       <Properties>
@@ -163,7 +172,6 @@
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblHierarchy" min="-2" max="-2" attributes="0"/>
                       <Component id="lblCod" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="lblNameUser" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="lblLogin" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -173,15 +181,14 @@
                   </Group>
                   <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="txtCod" max="32767" attributes="0"/>
+                      <Component id="txtCod" pref="180" max="32767" attributes="0"/>
                       <Component id="txtNameUser" max="32767" attributes="0"/>
                       <Component id="txtLogin" max="32767" attributes="0"/>
                       <Component id="txtPassword" max="32767" attributes="0"/>
                       <Component id="txtNewPassword" max="32767" attributes="0"/>
                       <Component id="txtConfirmPassword" max="32767" attributes="0"/>
-                      <Component id="cbxHierarchy" pref="180" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="188" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="304" max="-2" attributes="0"/>
@@ -226,15 +233,10 @@
                               <Component id="lblPasswordConfirm" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtConfirmPassword" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lblHierarchy" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="cbxHierarchy" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
                       </Group>
                       <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="34" max="32767" attributes="0"/>
+                  <EmptySpace pref="72" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -271,39 +273,39 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCod">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNameUser">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtLogin">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtLoginActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtPassword">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPasswordActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNewPassword">
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtConfirmPassword">
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblHierarchy">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Hierarquia"/>
+            <Property name="editable" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="cbxHierarchy">
+        <Component class="javax.swing.JTextField" name="txtConfirmPassword">
           <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="5">
-                <StringItem index="0" value="Administrador"/>
-                <StringItem index="1" value="Gerente"/>
-                <StringItem index="2" value="T&#xe9;cnico"/>
-                <StringItem index="3" value="Atendente"/>
-                <StringItem index="4" value=" "/>
-              </StringArray>
-            </Property>
+            <Property name="editable" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">

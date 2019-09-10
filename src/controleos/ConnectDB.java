@@ -25,7 +25,7 @@ public class ConnectDB {
 		try {
 			Class.forName(DRIVER);
 			con = DriverManager.getConnection(URL, LOGIN, SENHA);
-			//System.out.println("Classe BD - Conectou");
+			System.out.println("Classe BD - Conectou");
 			return true;
 		} catch (ClassNotFoundException e) {
 			System.out.println("Classe BD - Driver nao encontrado " + e.toString());
@@ -36,13 +36,6 @@ public class ConnectDB {
 		}
 	}
 
-    private void close() {
-        try {
-			con.close();
-			System.out.println("Classe BD - Desconectou");
-		} catch (SQLException e) {			
-		}
-    }
     
     public boolean login(String login , String senha) {
         ConnectDB bd= new ConnectDB();
@@ -152,6 +145,14 @@ public class ConnectDB {
         JOptionPane.showMessageDialog(null, "Dados Salvos com sucesso!", "Salvo", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    private void close() {
+        try {
+			con.close();
+			System.out.println("Classe BD - Desconectou");
+		} catch (SQLException e) {			
+		}
+    }
+	
     public void QueryLogin(String usuario){  
         try{  
             ConnectDB bd = new ConnectDB();
@@ -179,7 +180,7 @@ public class ConnectDB {
 	try {
             String sql="SELECT id, nome, cpf, dataNascimento, endereco, cidade, numero, cep, telefone, celular";
 	
-                sql += " FROM cliente WHERE " + parametro +  pesquisa + ";";
+                sql += " FROM cliente WHERE " + parametro + " = " + pesquisa + ";";
 					
                 PreparedStatement stmt = bd.con.prepareStatement(sql);
 		
@@ -213,66 +214,23 @@ public class ConnectDB {
              dados[0][49]= Integer.toString(contaUsuarios);
         return dados; 
     }
-
-    void alterarCliente(String[] dados) {
-        ConnectDB bd=new ConnectDB();
-      if(bd.abreConexao()) {
-	try {
-            String sql="UPDATE cliente SET ";
-            String virgula=",";
-            String asterisco="'";
-                sql += " nome="+asterisco+dados[0]+asterisco+virgula
-                        +" cpf="+dados[1]+virgula
-                        + " dataNascimento="+asterisco+dados[2]+asterisco+virgula
-                        +" endereco="+asterisco+dados[3]+asterisco+virgula;
-		sql += " cidade="+asterisco+dados[4]+asterisco+virgula
-                        +" numero="+dados[5]+virgula
-                        +" cep="+dados[6]+virgula
-                        +" telefone="+asterisco+dados[7]+asterisco+virgula
-                        +" celular="+asterisco+dados[8]+asterisco+" where id = " + dados[9] +";";		
-                PreparedStatement stmt = bd.con.prepareStatement(sql);
-		          System.out.println(sql);
-                stmt.executeUpdate(sql);
-             
-            stmt.close();    
-        }catch (Exception e) {
-            System.out.println(e.toString());
-            JOptionPane.showMessageDialog(null, "Os dados não foram salvos!", "Salvo", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-            else {
-                JOptionPane.showMessageDialog(null, "Os dados não foram salvos!", "Salvo", JOptionPane.ERROR_MESSAGE);
-                System.out.println("Erro ao conectar");
-            }
-        
-        bd.close();
-        JOptionPane.showMessageDialog(null, "Dados Salvos com sucesso!", "Salvo", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    void deleteClient(String id) {
-        ConnectDB bd=new ConnectDB();
-      if(bd.abreConexao()) {
-	try {
-            String sql="DELETE FROM cliente WHERE id = ";
-                sql += id +";";		
-                PreparedStatement stmt = bd.con.prepareStatement(sql);
-		          System.out.println(sql);
-                stmt.executeUpdate(sql);
-             
-            stmt.close();    
-        }catch (Exception e) {
-            System.out.println(e.toString());
-            JOptionPane.showMessageDialog(null, "Os dados não foram salvos!", "Salvo", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-            else {
-                JOptionPane.showMessageDialog(null, "Os dados não foram salvos!", "Salvo", JOptionPane.ERROR_MESSAGE);
-                System.out.println("Erro ao conectar");
-            }
-        
-        bd.close();
-        JOptionPane.showMessageDialog(null, "Dados Salvos com sucesso!", "Salvo", JOptionPane.INFORMATION_MESSAGE);
-    }
-
     
+    
+    public void excluirCliente(int clienteExcluir){  
+        try{  
+            ConnectDB bd = new ConnectDB();
+            String SQL = "delete , senha from login where id = " +  
+                    clienteExcluir + " ;";  
+            
+            PreparedStatement stmt = bd.con.prepareCall(SQL);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            JOptionPane.showMessageDialog(null, "Excluído com Sucesso" );
+        }  
+        catch(SQLException ex){  
+            ex.printStackTrace(); 
+            JOptionPane.showMessageDialog(null, "Não Excluído" );
+        }  
+    }
 }

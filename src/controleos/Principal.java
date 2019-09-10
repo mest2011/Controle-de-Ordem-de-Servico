@@ -5,7 +5,6 @@
  */
 package controleos;
 
-import controleos.View.NovaOS;
 import java.awt.Component;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -46,8 +45,8 @@ public class Principal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jToolBar2 = new javax.swing.JToolBar();
         btnUserAdm = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -169,6 +168,9 @@ public class Principal extends javax.swing.JFrame {
         btnUserAdm.getAccessibleContext().setAccessibleName("Gerenciamento de Usuários");
         btnUserAdm.getAccessibleContext().setAccessibleDescription("Gerenciamento de Usuários");
 
+        jLabel4.setText("  ");
+        jToolBar2.add(jLabel4);
+
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/controleos/imagens/sair.png"))); // NOI18N
         jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton1.setFocusable(false);
@@ -185,9 +187,6 @@ public class Principal extends javax.swing.JFrame {
         jToolBar2.add(jButton1);
         jButton1.getAccessibleContext().setAccessibleName("Sair");
         jButton1.getAccessibleContext().setAccessibleDescription("Sair");
-
-        jLabel4.setText("  ");
-        jToolBar2.add(jLabel4);
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -228,7 +227,8 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNewOSActionPerformed
 
     private void btnNewClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewClientActionPerformed
-        new NovoCliente().setVisible(true);
+        NovoCliente n = new NovoCliente();
+        n.setVisible(true);
     }//GEN-LAST:event_btnNewClientActionPerformed
 
     private void btnConsultClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultClientActionPerformed
