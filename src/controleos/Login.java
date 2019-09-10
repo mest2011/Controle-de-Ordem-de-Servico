@@ -5,6 +5,7 @@
  */
 package controleos;
 
+import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -48,6 +49,11 @@ public class Login extends javax.swing.JFrame {
             getImage());
         setLocation(new java.awt.Point(200, 200));
         setResizable(false);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         lblUsuario.setText("Usuário:");
 
@@ -56,6 +62,11 @@ public class Login extends javax.swing.JFrame {
         txtUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUsuarioActionPerformed(evt);
+            }
+        });
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyPressed(evt);
             }
         });
 
@@ -73,6 +84,12 @@ public class Login extends javax.swing.JFrame {
         });
 
         lblFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/controleos/imagens/foto login.png"))); // NOI18N
+
+        pwSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                pwSenhaKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -150,6 +167,64 @@ public class Login extends javax.swing.JFrame {
             
         
     }//GEN-LAST:event_btnEntrarActionPerformed
+    private void jPasswordKeyPressed(java.awt.event.KeyEvent evt) {                                     
+            if(evt.getKeyCode() == evt.VK_ENTER){  
+                char[] k = pwSenha.getPassword();
+        String key = String.valueOf(k);
+        
+        
+        if(new ConnectDB().login(txtUsuario.getText(),key )){
+            
+                Principal p = new Principal();
+                p.setVisible(true);
+                dispose();
+            }
+        
+       
+            } 
+    }
+    
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formKeyPressed
+
+    private void txtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyPressed
+                                            
+            if(evt.getKeyCode() == evt.VK_ENTER){  
+                char[] k = pwSenha.getPassword();
+        String key = String.valueOf(k);
+        
+        
+        if(new ConnectDB().login(txtUsuario.getText(),key )){
+            
+                Principal p = new Principal();
+                p.setVisible(true);
+                dispose();
+            
+        
+       
+            } 
+    }
+    }//GEN-LAST:event_txtUsuarioKeyPressed
+
+    private void pwSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pwSenhaKeyPressed
+                                           
+            if(evt.getKeyCode() == evt.VK_ENTER){  
+                char[] k = pwSenha.getPassword();
+        String key = String.valueOf(k);
+        
+        
+        if(new ConnectDB().login(txtUsuario.getText(),key )){
+            
+                Principal p = new Principal();
+                p.setVisible(true);
+                dispose();
+            
+        
+       
+            } 
+    }
+    }//GEN-LAST:event_pwSenhaKeyPressed
 
     /**
      * @param args the command line arguments
