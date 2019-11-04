@@ -5,9 +5,14 @@
  */
 package controleos;
 
+import controleos.Usuario.Usuario;
+import java.awt.Component;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import static org.eclipse.persistence.jpa.jpql.utility.CollectionTools.array;
 
 /**
  *
@@ -54,9 +59,6 @@ public class GerenciamentoDeUsuarios extends javax.swing.JFrame {
         txtPassword = new javax.swing.JTextField();
         txtNewPassword = new javax.swing.JTextField();
         txtConfirmPassword = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblUserList = new javax.swing.JTable();
         btnSearchUser = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -70,6 +72,7 @@ public class GerenciamentoDeUsuarios extends javax.swing.JFrame {
         });
 
         btnEdit.setText("Editar Usuário");
+        btnEdit.setEnabled(false);
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditActionPerformed(evt);
@@ -84,8 +87,15 @@ public class GerenciamentoDeUsuarios extends javax.swing.JFrame {
         });
 
         btnSave.setText("Salvar");
+        btnSave.setEnabled(false);
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("Deletar Usuário");
+        btnDelete.setEnabled(false);
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
@@ -109,11 +119,12 @@ public class GerenciamentoDeUsuarios extends javax.swing.JFrame {
 
         lblPasswordConfirm.setText("Confirme a Senha:");
 
-        txtCod.setEditable(false);
+        txtCod.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtCod.setText("0");
 
-        txtNameUser.setEditable(false);
+        txtNameUser.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
-        txtLogin.setEditable(false);
+        txtLogin.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtLoginActionPerformed(evt);
@@ -121,6 +132,7 @@ public class GerenciamentoDeUsuarios extends javax.swing.JFrame {
         });
 
         txtPassword.setEditable(false);
+        txtPassword.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPasswordActionPerformed(evt);
@@ -128,45 +140,10 @@ public class GerenciamentoDeUsuarios extends javax.swing.JFrame {
         });
 
         txtNewPassword.setEditable(false);
+        txtNewPassword.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         txtConfirmPassword.setEditable(false);
-
-        jLabel1.setText("Lista de usuários cadastrados:");
-
-        tblUserList.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "id", "Nome", "Login", "Hierarquia"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tblUserList);
-        if (tblUserList.getColumnModel().getColumnCount() > 0) {
-            tblUserList.getColumnModel().getColumn(0).setResizable(false);
-            tblUserList.getColumnModel().getColumn(0).setPreferredWidth(10);
-            tblUserList.getColumnModel().getColumn(1).setResizable(false);
-            tblUserList.getColumnModel().getColumn(2).setResizable(false);
-            tblUserList.getColumnModel().getColumn(3).setResizable(false);
-        }
+        txtConfirmPassword.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -189,11 +166,7 @@ public class GerenciamentoDeUsuarios extends javax.swing.JFrame {
                     .addComponent(txtPassword)
                     .addComponent(txtNewPassword)
                     .addComponent(txtConfirmPassword))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(62, 62, 62))
+                .addContainerGap(554, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,31 +174,27 @@ public class GerenciamentoDeUsuarios extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCod)
-                    .addComponent(txtCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(txtCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblNameUser)
-                            .addComponent(txtNameUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblLogin)
-                            .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblPassword)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblNewPassword)
-                            .addComponent(txtNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblPasswordConfirm)
-                            .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNameUser)
+                    .addComponent(txtNameUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblLogin)
+                    .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPassword)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNewPassword)
+                    .addComponent(txtNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPasswordConfirm)
+                    .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(72, Short.MAX_VALUE))
         );
 
@@ -306,8 +275,6 @@ public class GerenciamentoDeUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPasswordActionPerformed
 
     private void btnSearchUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchUserActionPerformed
-        String[][] dados = new String[4][50]; //Buscar Usuario 
-        dados = new ConnectDB().searchUser();
         txtCod.setEditable(true);
         txtLogin.setEditable(true);
         txtNameUser.setEditable(true);
@@ -315,43 +282,53 @@ public class GerenciamentoDeUsuarios extends javax.swing.JFrame {
         txtConfirmPassword.setEditable(false);
         txtNewPassword.setEditable(false);
       
+        int id = Integer.parseInt(txtCod.getText());
+        String nome = txtNameUser.getText();
+        String login = txtLogin.getText();
         
+        UsuarioDAO userDAO = new UsuarioDAO();
         
-        
-    /*  
-        for(int x=0; x<50; x++){
-            if(dados[0][x] == null)x=50;
-            for (int i = 0; i < 4; i++) {
-                tblUserList.set;
+        try {
+            String[][] array = userDAO.pesquisar(id, nome, login);
+            
+            
+            int lines = array.length;
+            
+            if (lines > 0) {
+                String listaUser = "cogigo   nome    login\n"; 
+                while (lines > 0 ) {
+                    if(array[lines-1][0] != null){
+                        listaUser += lines + "               ";
+                        listaUser += array[lines-1][2] + "   ";
+                        listaUser += array[lines-1][1];
+                        listaUser += "\n";
+                    }
+                    
+                    lines--;
+                }
+                int escolhido =  Integer.parseInt(JOptionPane.showInputDialog(null, listaUser))-1;
+                
+                txtCod.setText(array[escolhido][0]);
+                txtLogin.setText(array[escolhido][1]);
+                txtNameUser.setText(array[escolhido][2]);
+                /*String ocultaSenha = array[escolhido][3];
+                for(int x=0;x < ocultaSenha.length();x++  ){
+                    
+                }*/
+                txtPassword.setText("*****");
+                
+                
+                btnEdit.setEnabled(true);
+                btnDelete.setEnabled(true);
+            }else{
+                JOptionPane.showMessageDialog(null, "Não ha dados compativeis!");
             }
+                
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(GerenciamentoDeUsuarios.class.getName()).log(Level.SEVERE, null, ex);
         }
-    */    
-        /*tblUserList.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "id", "Nome", "Login", "Hierarquia"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });*/
     }//GEN-LAST:event_btnSearchUserActionPerformed
 
     private void btnNewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewUserActionPerformed
@@ -362,37 +339,126 @@ public class GerenciamentoDeUsuarios extends javax.swing.JFrame {
         txtNewPassword.setEditable(false);
         txtCod.setEditable(false);
         
+        //Limpa campos
+                txtCod.setText("0");
+                txtConfirmPassword.setText(null);
+                txtLogin.setText(null);
+                txtNameUser.setText(null);
+                txtNewPassword.setText(null);
+                txtPassword.setText(null);
+        
+        btnSave.setEnabled(true);
+        
     }//GEN-LAST:event_btnNewUserActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
         //Edição de Usuario
+        
+        txtCod.setEditable(false);
+        txtNameUser.setEditable(true);
         txtLogin.setEditable(true);
+        txtPassword.setEditable(false);
         txtNewPassword.setEditable(true);
         txtConfirmPassword.setEditable(true);
+        
+        btnSave.setEnabled(true);
+        btnNewUser.setEnabled(false);
         
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
-        int clienteExcluir;
-        int resposta ;
-        resposta = JOptionPane.showConfirmDialog(null, "Deseja Deletar ?");
-        System.out.println(resposta);
-        if(resposta==0){
-            //deletar
-            clienteExcluir = Integer.parseInt(txtCod.getText());
+        Usuario user = new Usuario();
+        JDialog.setDefaultLookAndFeelDecorated (true);
+        Component nulo = null;
+        int resposta = JOptionPane.showConfirmDialog (nulo, "Deseja mesmo excluir o usuario? \n " +txtNameUser.getText() , "Confirmar exclusão" ,
+            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        
+        if (resposta == JOptionPane.YES_OPTION) {
+            user.setId(Integer.parseInt(txtCod.getText()));
+            new UsuarioDAO().delete(user);
+            
+           txtCod.setText("0");
+           txtConfirmPassword.setText(null);
+           txtLogin.setText(null);
+           txtNameUser.setText(null);
+           txtNewPassword.setText(null);
+           txtPassword.setText(null);
         }
-        if(resposta ==1){
-            //Nao deletar
-        }
-        if(resposta ==2){
-            //cancelar
-        }
+        
+        
+        
+        
+        
+        
         
         
    
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        String senha = txtPassword.getText();
+        String CSenha = txtConfirmPassword.getText();
+        String NSenha = txtNewPassword.getText();
+        int id = Integer.parseInt(txtCod.getText());
+        String nome = txtNameUser.getText();
+        String login = txtLogin.getText();
+        
+        
+        
+        Usuario usuario = new Usuario();
+        if (0 == id ) {
+            
+            usuario.setId(0);
+            usuario.setLogin(login);
+            usuario.setNome(nome);
+                if(senha.equals(CSenha)){
+                    usuario.setSenha(senha);
+                    if (id == 0) {
+                    UsuarioDAO usuarioDao = new UsuarioDAO();
+                    try {
+                        usuarioDao.gravar(nome, login, senha);
+                        JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+
+                        //Limpa campos
+                        txtCod.setText("0");
+                        txtConfirmPassword.setText(null);
+                        txtLogin.setText(null);
+                        txtNameUser.setText(null);
+                        txtNewPassword.setText(null);
+                        txtPassword.setText(null);
+                    } catch (SQLException e) {
+                         JOptionPane.showMessageDialog(null, "Erro ao salvar os dados!");
+                        }
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "As senhas não são iguais!");
+                }
+
+                
+        }else{
+             usuario.setId(Integer.parseInt(txtCod.getText()));
+             System.out.println(usuario.getId());
+             usuario.setLogin(login);
+             usuario.setNome(nome);
+             if(NSenha.equals(CSenha) && !NSenha.equals(null)){
+                 senha = NSenha;
+             }else{
+                 senha = null;
+             }
+                 
+             usuario.setSenha(senha);
+             UsuarioDAO userDAO =new UsuarioDAO();
+             userDAO.altera(usuario);
+             
+        }
+        
+       
+       
+        
+        
+        
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -424,11 +490,16 @@ public class GerenciamentoDeUsuarios extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+       
+            java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GerenciamentoDeUsuarios().setVisible(true);
+                
+                 new GerenciamentoDeUsuarios().setVisible(true);
             }
         });
+       
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -439,9 +510,7 @@ public class GerenciamentoDeUsuarios extends javax.swing.JFrame {
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSearchUser;
     private javax.persistence.EntityManager entityManager;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblCod;
     private javax.swing.JLabel lblGeneciaUser;
@@ -452,7 +521,6 @@ public class GerenciamentoDeUsuarios extends javax.swing.JFrame {
     private javax.swing.JLabel lblPasswordConfirm;
     private java.util.List<controleos.LoginKey> loginKeyList;
     private javax.persistence.Query loginKeyQuery;
-    private javax.swing.JTable tblUserList;
     private javax.swing.JTextField txtCod;
     private javax.swing.JTextField txtConfirmPassword;
     private javax.swing.JTextField txtLogin;

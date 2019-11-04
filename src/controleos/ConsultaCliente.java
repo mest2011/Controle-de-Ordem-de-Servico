@@ -5,7 +5,9 @@
  */
 package controleos;
 
+import java.awt.Component;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
@@ -75,6 +77,12 @@ public class ConsultaCliente extends javax.swing.JFrame {
         });
 
         btnSalvar.setText("Salvar");
+        btnSalvar.setEnabled(false);
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         lblConsultaCliente.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         lblConsultaCliente.setText("Consulta de Clientes");
@@ -84,6 +92,8 @@ public class ConsultaCliente extends javax.swing.JFrame {
         lblCpf4.setText("CPF:");
 
         txtAddreesCli4.setEditable(false);
+        txtAddreesCli4.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtAddreesCli4.setNextFocusableComponent(txtCityCli4);
 
         lblAddress4.setText("Endereço:");
 
@@ -91,20 +101,38 @@ public class ConsultaCliente extends javax.swing.JFrame {
 
         lblDateOfBirth4.setText("Data de nascimento:");
 
+        txtCodCli4.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtCodCli4.setNextFocusableComponent(txtNomeCli4);
+
+        txtNomeCli4.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtNomeCli4.setNextFocusableComponent(txtCpfCli4);
+
+        txtCpfCli4.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtCpfCli4.setNextFocusableComponent(FtxtDateOfBirdCli4);
+
         lblCod4.setText("Código:");
 
         lblName4.setText("Nome:");
 
         FtxtDateOfBirdCli4.setEditable(false);
         try {
-            FtxtDateOfBirdCli4.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            FtxtDateOfBirdCli4.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####/##/##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        FtxtDateOfBirdCli4.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        FtxtDateOfBirdCli4.setNextFocusableComponent(txtAddreesCli4);
+        FtxtDateOfBirdCli4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FtxtDateOfBirdCli4ActionPerformed(evt);
+            }
+        });
 
         jLabel14.setText("Cidade:");
 
         txtCityCli4.setEditable(false);
+        txtCityCli4.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtCityCli4.setNextFocusableComponent(txtNumberCli4);
 
         ftxtCepCli4.setEditable(false);
         try {
@@ -112,10 +140,19 @@ public class ConsultaCliente extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        ftxtCepCli4.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        ftxtCepCli4.setNextFocusableComponent(ftxtPhone4);
+        ftxtCepCli4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ftxtCepCli4ActionPerformed(evt);
+            }
+        });
 
         lblNumberCli4.setText("Número:");
 
         txtNumberCli4.setEditable(false);
+        txtNumberCli4.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtNumberCli4.setNextFocusableComponent(ftxtCepCli4);
 
         jLabel15.setText("Telefone:");
 
@@ -127,7 +164,8 @@ public class ConsultaCliente extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        ftxtPhone4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ftxtPhone4.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        ftxtPhone4.setNextFocusableComponent(ftxtCelPhone4);
         ftxtPhone4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ftxtPhone4ActionPerformed(evt);
@@ -140,7 +178,8 @@ public class ConsultaCliente extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        ftxtCelPhone4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ftxtCelPhone4.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        ftxtCelPhone4.setNextFocusableComponent(btnSalvar);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -236,6 +275,7 @@ public class ConsultaCliente extends javax.swing.JFrame {
         });
 
         btnChange.setText("Alterar");
+        btnChange.setEnabled(false);
         btnChange.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnChangeActionPerformed(evt);
@@ -243,6 +283,13 @@ public class ConsultaCliente extends javax.swing.JFrame {
         });
 
         btnDelete.setText("Deletar");
+        btnDelete.setEnabled(false);
+        btnDelete.setFocusable(false);
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -310,7 +357,26 @@ public class ConsultaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_ftxtPhone4ActionPerformed
 
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
-        // TODO add your handling code here:
+        if (txtAddreesCli4.getText().length()>0) {
+            txtCodCli4.setEditable(false);
+            txtNomeCli4.setEditable(true);
+            txtCpfCli4.setEditable(true);
+            FtxtDateOfBirdCli4.setEditable(true);
+            txtAddreesCli4.setEditable(true);
+            txtCityCli4.setEditable(true);
+            txtNumberCli4.setEditable(true);
+            ftxtCepCli4.setEditable(true);
+            ftxtPhone4.setEditable(true);
+            ftxtCelPhone4.setEditable(true);
+            
+            
+            btnSearch.setEnabled(false);
+            btnSalvar.setEnabled(true);
+        }
+       
+       
+       
+       
     }//GEN-LAST:event_btnChangeActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
@@ -321,7 +387,7 @@ public class ConsultaCliente extends javax.swing.JFrame {
                selecaoDeUsuario="",
                strJOption=""; 
                              
-        if(!txtCodCli4.getText().equals("")){
+        if(txtCodCli4.getText().length() > 0){
             pesquisa = txtCodCli4.getText();
             parametro = "id";
         }else{
@@ -329,15 +395,15 @@ public class ConsultaCliente extends javax.swing.JFrame {
                 pesquisa = "'"+ txtNomeCli4.getText() + "'";
                 parametro = "nome";
             }else{
-                if(!cpf.equals("") || cpf.length() == 12){
+               
                     pesquisa = cpf;
                     parametro = "cpf";
-                }
+                
             }
-        }
-        if(pesquisa.equals("")) 
+        }dados = new ConnectDB().searchClient( parametro, pesquisa);
+        /*if(pesquisa.equals("")) 
             JOptionPane.showMessageDialog(null, "Insira um valor para pesquisa!", "Campos em branco", JOptionPane.ERROR_MESSAGE);
-        else{
+        else{*/
             dados = new ConnectDB().searchClient( parametro, pesquisa);
             if(Integer.parseInt(dados[0][49]) >= 1){
                 strJOption = "Selecione um cliente apartir do id: \n";
@@ -348,9 +414,10 @@ public class ConsultaCliente extends javax.swing.JFrame {
             }else{
               selecaoDeUsuario = dados[0][49];
             }   
-        }
+       // }
         int parametroGravacao=Integer.parseInt(selecaoDeUsuario)-1;
         if(!"".equals(selecaoDeUsuario)){
+            
             txtCodCli4.setText(dados[1][parametroGravacao]);
             txtNomeCli4.setText(dados[2][parametroGravacao]);
             txtCpfCli4.setText(dados[3][parametroGravacao]);
@@ -361,11 +428,67 @@ public class ConsultaCliente extends javax.swing.JFrame {
             ftxtCepCli4.setText(dados[8][parametroGravacao]);
             ftxtPhone4.setText(dados[9][parametroGravacao]);
             ftxtCelPhone4.setText(dados[10][parametroGravacao]);
+            
+            btnChange.setEnabled(true);
+            btnDelete.setEnabled(true);
+            
         }
         
         
         
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void FtxtDateOfBirdCli4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FtxtDateOfBirdCli4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FtxtDateOfBirdCli4ActionPerformed
+
+    private void ftxtCepCli4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftxtCepCli4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ftxtCepCli4ActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        JDialog.setDefaultLookAndFeelDecorated (true);
+        Component nulo = null;
+        int resposta = JOptionPane.showConfirmDialog (nulo, "Deseja continuar?" , "Confirmar exclusão" ,
+            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        
+        if (resposta == JOptionPane.YES_OPTION) {
+            new ConnectDB().excluirCliente(txtCodCli4.getText());
+            
+            txtAddreesCli4.setText(null);
+            txtCityCli4.setText(null);
+            txtCodCli4.setText(null);
+            txtCpfCli4.setText(null);
+            txtNomeCli4.setText(null);
+            txtNumberCli4.setText(null);
+            FtxtDateOfBirdCli4.setText(null);
+            ftxtCepCli4.setText(null);
+            ftxtPhone4.setText(null);
+            ftxtCelPhone4.setText(null);
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        String[] dadosCliente = new String[10]; 
+        
+        dadosCliente[0]=txtCodCli4.getText();
+        dadosCliente[1]=txtNomeCli4.getText();
+        dadosCliente[2]=txtCpfCli4.getText();
+        dadosCliente[3]=FtxtDateOfBirdCli4.getText();
+        dadosCliente[4]=txtAddreesCli4.getText();
+        dadosCliente[5]=txtCityCli4.getText();
+        dadosCliente[6]=txtNumberCli4.getText();
+        dadosCliente[7]=ftxtCepCli4.getText();
+        dadosCliente[8]=ftxtPhone4.getText();
+        dadosCliente[9]=ftxtCelPhone4.getText();
+        
+        
+        
+            new ConnectDB().updateCliente(dadosCliente);
+        
+      
+        
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
      * @param args the command line arguments

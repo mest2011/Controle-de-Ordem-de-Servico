@@ -47,9 +47,6 @@ public class Principal extends javax.swing.JFrame {
         btnUserAdm = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Principal - Controle de Ordem de Serviço");
@@ -146,7 +143,7 @@ public class Principal extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 428, Short.MAX_VALUE)
+            .addGap(0, 449, Short.MAX_VALUE)
         );
 
         jToolBar2.setFloatable(false);
@@ -187,14 +184,6 @@ public class Principal extends javax.swing.JFrame {
         jToolBar2.add(jButton1);
         jButton1.getAccessibleContext().setAccessibleName("Sair");
         jButton1.getAccessibleContext().setAccessibleDescription("Sair");
-
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
-
-        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -237,7 +226,13 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultClientActionPerformed
 
     private void btnUserAdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserAdmActionPerformed
-        new GerenciamentoDeUsuarios().setVisible(true);
+        String pass = JOptionPane.showInputDialog(null, "digite a senha do admnistrador:");
+        if(pass.equals("0133")){
+            new GerenciamentoDeUsuarios().setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(null, "Senha incorreta!");
+        }
+        
     }//GEN-LAST:event_btnUserAdmActionPerformed
 
     private void btnConsultOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultOSActionPerformed
@@ -310,9 +305,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JToolBar jToolBar1;

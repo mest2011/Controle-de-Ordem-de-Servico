@@ -34,13 +34,13 @@ public class NovoCliente extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         lblCpf = new javax.swing.JLabel();
+        txtCpfCli = new javax.swing.JFormattedTextField();
         txtAddreesCli = new javax.swing.JTextField();
         lblAddress = new javax.swing.JLabel();
         lblZipCode = new javax.swing.JLabel();
         lblDateOfBirth = new javax.swing.JLabel();
         txtCodCli = new javax.swing.JTextField();
         txtNomeCli = new javax.swing.JTextField();
-        txtCpfCli = new javax.swing.JTextField();
         lblCod = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
         FtxtDateOfBirdCli = new javax.swing.JFormattedTextField();
@@ -62,8 +62,8 @@ public class NovoCliente extends javax.swing.JFrame {
         setTitle("Novo Cliente - Cadastro");
         setIconImage(new ImageIcon(getClass().getResource("imagens/icone.png")).
             getImage());
-        setMaximumSize(new java.awt.Dimension(923, 452));
-        setMinimumSize(new java.awt.Dimension(923, 452));
+        setMaximumSize(new java.awt.Dimension(836, 457));
+        setMinimumSize(new java.awt.Dimension(836, 457));
         setPreferredSize(new java.awt.Dimension(923, 452));
 
         btnCancelar.setText("Cancelar");
@@ -74,6 +74,7 @@ public class NovoCliente extends javax.swing.JFrame {
         });
 
         btnSalvar.setText("Salvar");
+        btnSalvar.setNextFocusableComponent(btnCancelar);
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -84,6 +85,23 @@ public class NovoCliente extends javax.swing.JFrame {
 
         lblCpf.setText("CPF:");
 
+        try {
+            txtCpfCli.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtCpfCli.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtCpfCli.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtCpfCli.setNextFocusableComponent(FtxtDateOfBirdCli);
+        txtCpfCli.setPreferredSize(new java.awt.Dimension(6, 20));
+        txtCpfCli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCpfCliActionPerformed(evt);
+            }
+        });
+
+        txtAddreesCli.setNextFocusableComponent(txtCityCli);
+
         lblAddress.setText("Endereço:");
 
         lblZipCode.setText("CEP:");
@@ -91,6 +109,11 @@ public class NovoCliente extends javax.swing.JFrame {
         lblDateOfBirth.setText("Data de nascimento:");
 
         txtCodCli.setEditable(false);
+        txtCodCli.setMaximumSize(new java.awt.Dimension(6, 20));
+        txtCodCli.setNextFocusableComponent(txtNomeCli);
+
+        txtNomeCli.setMaximumSize(new java.awt.Dimension(6, 20));
+        txtNomeCli.setNextFocusableComponent(txtCpfCli);
 
         lblCod.setText("Código:");
 
@@ -101,17 +124,23 @@ public class NovoCliente extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        FtxtDateOfBirdCli.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        FtxtDateOfBirdCli.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        FtxtDateOfBirdCli.setNextFocusableComponent(txtAddreesCli);
 
         jLabel2.setText("Cidade:");
+
+        txtCityCli.setNextFocusableComponent(txtNumberCli);
 
         try {
             ftxtCepCli.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        ftxtCepCli.setNextFocusableComponent(ftxtPhone);
 
         lblNumberCli.setText("Número:");
+
+        txtNumberCli.setNextFocusableComponent(ftxtCepCli);
 
         jLabel3.setText("Telefone:");
 
@@ -123,6 +152,7 @@ public class NovoCliente extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         ftxtPhone.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ftxtPhone.setNextFocusableComponent(ftxtCelPhone);
         ftxtPhone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ftxtPhoneActionPerformed(evt);
@@ -135,6 +165,7 @@ public class NovoCliente extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         ftxtCelPhone.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ftxtCelPhone.setNextFocusableComponent(btnSalvar);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -143,27 +174,27 @@ public class NovoCliente extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblCod)
                     .addComponent(lblName)
-                    .addComponent(lblCpf)
+                    .addComponent(lblCod)
                     .addComponent(lblDateOfBirth)
                     .addComponent(lblAddress)
                     .addComponent(jLabel2)
-                    .addComponent(lblNumberCli))
-                .addGap(18, 57, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtAddreesCli)
-                    .addComponent(FtxtDateOfBirdCli)
-                    .addComponent(txtCpfCli)
-                    .addComponent(txtNomeCli)
-                    .addComponent(txtCodCli)
-                    .addComponent(txtCityCli)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addComponent(lblNumberCli)
+                    .addComponent(lblCpf))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(txtAddreesCli, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNomeCli, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtCodCli, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtCityCli, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(txtNumberCli, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblZipCode)
                         .addGap(35, 35, 35)
-                        .addComponent(ftxtCepCli, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ftxtCepCli, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCpfCli, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(FtxtDateOfBirdCli))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
@@ -181,31 +212,33 @@ public class NovoCliente extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(ftxtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(txtCodCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblCod))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(txtNomeCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel4)
+                                        .addComponent(ftxtCelPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                    .addComponent(jLabel3)
-                                                    .addComponent(ftxtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(lblCod)
-                                                        .addComponent(txtCodCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(txtNomeCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jLabel4)
-                                                        .addComponent(ftxtCelPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtCpfCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(lblCpf))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(FtxtDateOfBirdCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblDateOfBirth))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(15, 15, 15)
+                                .addComponent(lblCpf)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtCpfCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(7, 7, 7)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDateOfBirth)
+                            .addComponent(FtxtDateOfBirdCli, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtAddreesCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblAddress))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -219,7 +252,7 @@ public class NovoCliente extends javax.swing.JFrame {
                         .addComponent(lblZipCode)
                         .addComponent(lblNumberCli)
                         .addComponent(txtNumberCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addGap(36, 36, 36))
         );
 
         lblCadatroCliente.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
@@ -244,7 +277,7 @@ public class NovoCliente extends javax.swing.JFrame {
                             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblCadatroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jSeparator1))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,14 +290,14 @@ public class NovoCliente extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 63, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnSalvar))
                 .addGap(20, 20, 20))
         );
 
-        pack();
+        setSize(new java.awt.Dimension(854, 504));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -279,94 +312,39 @@ public class NovoCliente extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         boolean campos=true;
         String[] dadosCliente = new String[9]; 
+        long tCpf = Long.parseLong("999999999999");
         
         dadosCliente[0]=txtNomeCli.getText();
         dadosCliente[1]=txtCpfCli.getText();
-        dadosCliente[2]=new SubstituirCaracteres().tiraData(FtxtDateOfBirdCli.getText());
+        dadosCliente[2]=FtxtDateOfBirdCli.getText();
         dadosCliente[3]=txtAddreesCli.getText();
         dadosCliente[4]=txtCityCli.getText();
         dadosCliente[5]=txtNumberCli.getText();
-        dadosCliente[6]=new SubstituirCaracteres().retiraCep(ftxtCepCli.getText());
+        dadosCliente[6]=ftxtCepCli.getText();
         dadosCliente[7]=ftxtPhone.getText();
         dadosCliente[8]=ftxtCelPhone.getText();
+        System.out.println(dadosCliente[1]);
+        if ("".equals(dadosCliente[0])) {
+            JOptionPane.showMessageDialog(null, "Digite o NOME do cliente!");
+            //TODO tirar espaços na verificação do cpf
+        } else if (new SubstituirCaracteres().tiraBarra(new SubstituirCaracteres().tiraPonto(dadosCliente[1]))=="" || dadosCliente[1].length() < 14 ) {
+            JOptionPane.showMessageDialog(null, "Digite o CPF do cliente!");
+        } else if (dadosCliente[3].length()<1) {
+            JOptionPane.showMessageDialog(null, "Digite o ENDEREÇO do cliente!");
+        } else if (dadosCliente[4].length()<1) {
+            JOptionPane.showMessageDialog(null, "Digite a CIDADE do cliente!");
+        } else if (dadosCliente[5].length()<1) {
+            JOptionPane.showMessageDialog(null, "Digite o NUMERO da casa do cliente!");
+        } else if (dadosCliente[6].length()<1) {
+            JOptionPane.showMessageDialog(null, "Digite o CEP do cliente!");
+        } else if (dadosCliente[7].length()<5 && dadosCliente[8].length()<5) {
+            JOptionPane.showMessageDialog(null, "Digite um telefone de contato do cliente!");
+        } else{
         
-        if (dadosCliente[0].equals("")) {
-           JOptionPane.showMessageDialog(null, "Insira um nome! \n Campo nome em branco!", "Nome", JOptionPane.ERROR_MESSAGE);
-           campos = false;
-        }else{
-            try {
-                long testaCpf = Long.parseLong(dadosCliente[1]);
-                } catch (Exception e) {
-                    System.out.println(e);
-                  JOptionPane.showMessageDialog(null, "Insira apenas números!", "CPF", JOptionPane.ERROR_MESSAGE);
-                  campos = false;
-                }
-                  if (dadosCliente[1].equals("")) {
-                    JOptionPane.showMessageDialog(null, "Insira um CPF!", "CPF", JOptionPane.ERROR_MESSAGE);
-                    campos = false;
-                }else
-            if (dadosCliente[2].equals("    -  -  ")) {
-            JOptionPane.showMessageDialog(null, "Insira uma data de nascimento!", "Data", JOptionPane.ERROR_MESSAGE);
-            campos = false;
-        }else
-            if (dadosCliente[3].equals("")) {
-            JOptionPane.showMessageDialog(null, "Insira um endereço!", "Endereço", JOptionPane.ERROR_MESSAGE);
-            campos = false;
-        }else
-            if (dadosCliente[4].equals("")) {
-            JOptionPane.showMessageDialog(null, "Insira uma cidade!", "Cidade", JOptionPane.ERROR_MESSAGE);
-            campos = false;
-        }else{
-                try {
-                   long testaNum = Long.parseLong(dadosCliente[5]);
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Insira apenas números!", "Número da casa", JOptionPane.ERROR_MESSAGE);
-                    campos = false;
-                }
-                if (dadosCliente[5].equals("")) {
-                JOptionPane.showMessageDialog(null, "Insira um número!", "Número da casa", JOptionPane.ERROR_MESSAGE);
-                campos = false;
-            }else{
-                    String testaif = new SubstituirCaracteres().apenasNumeros(dadosCliente[6]);
-                try {
-                   long testaCep = Long.parseLong(testaif);
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Insira apenas números!", "Cep", JOptionPane.ERROR_MESSAGE);
-                    campos = false;
-                }
-                if (testaif.equals("")) {
-                JOptionPane.showMessageDialog(null, "Insira um Cep!", "Cep", JOptionPane.ERROR_MESSAGE);
-                campos = false;
-                }else{
-                    try {
-                       long testaFone = Long.parseLong(new SubstituirCaracteres().apenasNumeros(dadosCliente[7]));
-                     } catch (Exception e) {
-                         JOptionPane.showMessageDialog(null, "Insira apenas números!", "Telefone", JOptionPane.ERROR_MESSAGE);
-                         campos = false;
-                     }
-                     if (new SubstituirCaracteres().apenasNumeros(dadosCliente[7]).equals("")) {
-                     JOptionPane.showMessageDialog(null, "Insira um Telefone!", "Telefone", JOptionPane.ERROR_MESSAGE);
-                     campos = false;
-                     }else{
-                        try {
-                            long testaCell = Long.parseLong(new SubstituirCaracteres().apenasNumeros(dadosCliente[8]));
-                         } catch (Exception e) {
-                             JOptionPane.showMessageDialog(null, "Insira apenas números!", "Celular", JOptionPane.ERROR_MESSAGE);
-                             campos = false;
-                         }
-                         if (new SubstituirCaracteres().apenasNumeros(dadosCliente[8]).equals("")) {
-                         JOptionPane.showMessageDialog(null, "Insira um Celular!", "Celular", JOptionPane.ERROR_MESSAGE);
-                         campos = false;
-                         }    
-                      }    
-                }
+        new ConnectDB().incluirCliente(dadosCliente);
         
-            }
-        }        } 
- 
-        
-        if (campos) {
-            new ConnectDB().incluirCliente(dadosCliente);
+            
+    //zera campos
             txtNomeCli.setText("");
             txtCpfCli.setText("");
             FtxtDateOfBirdCli.setText("");
@@ -375,10 +353,14 @@ public class NovoCliente extends javax.swing.JFrame {
             txtNumberCli.setText("");
             ftxtCepCli.setText("");
             ftxtPhone.setText("");
-            ftxtCelPhone.setText("");
-        }
+            ftxtCelPhone.setText(""); }
+                 
          
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void txtCpfCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCpfCliActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCpfCliActionPerformed
 
     /**
      * @param args the command line arguments
@@ -443,7 +425,7 @@ public class NovoCliente extends javax.swing.JFrame {
     private javax.swing.JTextField txtAddreesCli;
     private javax.swing.JTextField txtCityCli;
     private javax.swing.JTextField txtCodCli;
-    private javax.swing.JTextField txtCpfCli;
+    private javax.swing.JFormattedTextField txtCpfCli;
     private javax.swing.JTextField txtNomeCli;
     private javax.swing.JTextField txtNumberCli;
     // End of variables declaration//GEN-END:variables

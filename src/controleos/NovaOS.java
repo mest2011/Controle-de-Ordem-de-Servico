@@ -5,6 +5,8 @@
  */
 package controleos;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author mest2
@@ -35,7 +37,7 @@ public class NovaOS extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         EdPObsCar = new javax.swing.JEditorPane();
-        txtOS = new javax.swing.JTextField();
+        txtIdOS = new javax.swing.JTextField();
         txtModel = new javax.swing.JTextField();
         txtSerialNumber = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -49,14 +51,19 @@ public class NovaOS extends javax.swing.JFrame {
         txtNomeCli = new javax.swing.JTextField();
         txtCPF = new javax.swing.JTextField();
         btnNewClient = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnSearchClient = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar nova ordem de serviço");
-        setAlwaysOnTop(true);
 
         btnSave.setText("Salvar");
+        btnSave.setEnabled(false);
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         btnCancel.setText("Cancelar");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -75,7 +82,7 @@ public class NovaOS extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(EdPObsCar);
 
-        txtOS.setEnabled(false);
+        txtIdOS.setEnabled(false);
 
         jLabel5.setText("Nome:");
 
@@ -108,10 +115,10 @@ public class NovaOS extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Procurar cliente");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSearchClient.setText("Procurar cliente");
+        btnSearchClient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSearchClientActionPerformed(evt);
             }
         });
 
@@ -144,19 +151,19 @@ public class NovaOS extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtSerialNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
                                     .addComponent(txtModel)
-                                    .addComponent(txtOS))))
+                                    .addComponent(txtIdOS))))
                         .addGap(49, 49, 49)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(3, 3, 3)
                                 .addComponent(jLabel7)
-                                .addGap(145, 322, Short.MAX_VALUE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(btnNewClient, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(btnSearchClient, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -188,7 +195,7 @@ public class NovaOS extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(txtOS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtIdOS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9)
                             .addComponent(txtCodCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -212,7 +219,7 @@ public class NovaOS extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnNewClient)
-                        .addComponent(jButton1))
+                        .addComponent(btnSearchClient))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -223,7 +230,7 @@ public class NovaOS extends javax.swing.JFrame {
                 .addGap(40, 40, 40))
         );
 
-        setSize(new java.awt.Dimension(916, 436));
+        setSize(new java.awt.Dimension(916, 454));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -239,13 +246,84 @@ public class NovaOS extends javax.swing.JFrame {
         new NovoCliente().setVisible(true);
     }//GEN-LAST:event_btnNewClientActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnSearchClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchClientActionPerformed
+       
+        String pesquisa = "", 
+               parametro = "",
+               cpf = txtCPF.getText(),
+               dados[][] = null,
+               selecaoDeUsuario="",
+               strJOption=""; 
+                             
+        if(txtCodCli.getText().length() > 0){
+            pesquisa = txtCodCli.getText();
+            parametro = "id";
+        }else{
+            if(!txtNomeCli.getText().equals("")){
+                pesquisa = "'"+ txtNomeCli.getText() + "'";
+                parametro = "nome";
+            }else{
+               
+                    pesquisa = cpf;
+                    parametro = "cpf";
+                
+            }
+        }
+            dados = new ConnectDB().searchClient( parametro, pesquisa);
+            if(Integer.parseInt(dados[0][49]) >= 1){
+                strJOption = "Selecione um cliente apartir do id: \n";
+              for(int x =1; x <= Integer.parseInt(dados[0][49]); x++){
+                  strJOption += x + "   " + dados[2][x-1] + "     " + dados[3][x-1] + "\n";
+              }
+              selecaoDeUsuario = JOptionPane.showInputDialog(strJOption);
+            }else{
+              selecaoDeUsuario = dados[0][49];
+            }   
+       // }
+        int parametroGravacao=Integer.parseInt(selecaoDeUsuario)-1;
+        if(!"".equals(selecaoDeUsuario)){
+            
+            txtCodCli.setText(dados[1][parametroGravacao]);
+            txtNomeCli.setText(dados[2][parametroGravacao]);
+            txtCPF.setText(dados[3][parametroGravacao]);
+            
+            btnSave.setEnabled(true);
+            
+        }
+        
+        
+    }//GEN-LAST:event_btnSearchClientActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        Os os = new Os();
+        
+        os.setIdCliente(txtCodCli.getText());
+        os.setModelo(txtModel.getText());
+        os.setSerial(txtSerialNumber.getText());
+        os.setObs(EdPObsCar.getText());
+        
+        
+        OSDAO osdao = new OSDAO();
+        try{
+        osdao.salvar(os);
+        JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+        
+        txtCPF.setText(null);
+        txtCodCli.setText(null);
+        txtModel.setText(null);
+        txtNomeCli.setText(null);
+        txtIdOS.setText(null);
+        txtSerialNumber.setText(null);
+        EdPObsCar.setText(null);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao salvar!");
+        }
+        
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -292,7 +370,7 @@ public class NovaOS extends javax.swing.JFrame {
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnNewClient;
     private javax.swing.JButton btnSave;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnSearchClient;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -308,9 +386,9 @@ public class NovaOS extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextField txtCPF;
     private javax.swing.JTextField txtCodCli;
+    private javax.swing.JTextField txtIdOS;
     private javax.swing.JTextField txtModel;
     private javax.swing.JTextField txtNomeCli;
-    private javax.swing.JTextField txtOS;
     private javax.swing.JTextField txtSerialNumber;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,6 +6,7 @@
 package controleos;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 /**
  *
  * @author mest2
@@ -51,18 +52,17 @@ public class ConsultaOS extends javax.swing.JFrame {
         EdPObsCar = new javax.swing.JEditorPane();
         jLabel9 = new javax.swing.JLabel();
         btnEditar = new javax.swing.JButton();
-        cbStatus = new javax.swing.JComboBox();
-        jLabel10 = new javax.swing.JLabel();
         txtCodOS = new javax.swing.JTextField();
         lblCelPhone = new javax.swing.JLabel();
         txtCelPhone = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consulta de Ordem de Serviço");
-        setAlwaysOnTop(true);
         setIconImage(new ImageIcon(getClass().getResource("imagens/icone.png")).
             getImage());
 
+        txtCodCli.setEditable(false);
+        txtCodCli.setEnabled(false);
         txtCodCli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCodCliActionPerformed(evt);
@@ -70,6 +70,17 @@ public class ConsultaOS extends javax.swing.JFrame {
         });
 
         btnSave.setText("Salvar");
+        btnSave.setEnabled(false);
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+
+        txtModel.setEditable(false);
+
+        txtNomeCli.setEditable(false);
+        txtNomeCli.setEnabled(false);
 
         btnCancel.setText("Cancelar");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -78,6 +89,10 @@ public class ConsultaOS extends javax.swing.JFrame {
             }
         });
 
+        txtSerialNumber.setEditable(false);
+
+        txtPhone.setEditable(false);
+        txtPhone.setEnabled(false);
         txtPhone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPhoneActionPerformed(evt);
@@ -109,17 +124,26 @@ public class ConsultaOS extends javax.swing.JFrame {
 
         lblPhone.setText("Telefone:");
 
+        EdPObsCar.setEditable(false);
+        EdPObsCar.setEnabled(false);
         jScrollPane1.setViewportView(EdPObsCar);
 
         jLabel9.setText("Código:");
 
         btnEditar.setText("Editar");
+        btnEditar.setEnabled(false);
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
-        cbStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aberta (Apenas foi recebido)", "Orçada (Orcamento Concluido)", "Não Aprovado", "Aprovado", "Pronto (Aguardando retirada)", "Entregue" }));
-
-        jLabel10.setText("Status da OS:");
+        txtCodOS.setEditable(false);
 
         lblCelPhone.setText("Celular:");
+
+        txtCelPhone.setEditable(false);
+        txtCelPhone.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -182,12 +206,7 @@ public class ConsultaOS extends javax.swing.JFrame {
                                     .addComponent(txtNomeCli)
                                     .addComponent(txtCodCli)
                                     .addComponent(txtCelPhone))))
-                        .addGap(52, 52, 52))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(52, 52, 52))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,13 +247,9 @@ public class ConsultaOS extends javax.swing.JFrame {
                     .addComponent(txtCelPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(45, 45, 45)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -256,12 +271,74 @@ public class ConsultaOS extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPhoneActionPerformed
 
     private void btnProcurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurarActionPerformed
-        // TODO add your handling code here:
+       OSDAO osdao = new OSDAO();
+        try {
+            String[][] array = osdao.buscaOs();
+            
+            int lines = array.length;
+            
+            if (lines > 0) {
+                String listaUser = "cogigo   Aparelho    Cliente\n"; 
+                while (lines > 0 ) {
+                    if(array[lines-1][0] != null){
+                        listaUser += lines + "               ";
+                        listaUser += array[lines-1][1] + "   ";
+                        listaUser += array[lines-1][5];
+                        listaUser += "\n";
+                    }
+                    
+                    lines--;
+                }
+                int escolhido =  Integer.parseInt(JOptionPane.showInputDialog(null, listaUser))-1;
+                
+                txtCodOS.setText(array[escolhido][0]);
+                txtModel.setText(array[escolhido][1]);
+                txtSerialNumber.setText(array[escolhido][2]);
+                EdPObsCar.setText(array[escolhido][3]);
+                txtCodCli.setText(array[escolhido][4]);
+                txtNomeCli.setText(array[escolhido][5]);
+                txtPhone.setText(array[escolhido][6]);
+                txtCelPhone.setText(array[escolhido][7]);
+                
+                btnEditar.setEnabled(true);
+            }else{
+                JOptionPane.showMessageDialog(null, "Não ha dados compativeis!");
+            }
+        } catch (Exception e) {
+        }
+        
+        
+        
+        
     }//GEN-LAST:event_btnProcurarActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        txtModel.setEditable(true);
+        txtSerialNumber.setEditable(true);
+        EdPObsCar.setEditable(true);
+        EdPObsCar.setEnabled(true);
+        
+        btnSave.setEnabled(true);
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        Os os= new Os();
+        os.setId(txtCodOS.getText());
+        os.setModelo(txtModel.getText());
+        os.setSerial(txtSerialNumber.getText());
+        os.setObs(EdPObsCar.getText());
+        
+        try{
+            new OSDAO().update(os);
+            JOptionPane.showMessageDialog(null, "Alterado com sucesso!");
+        } catch (Exception e) {
+           JOptionPane.showMessageDialog(null, "Error!");
+       }
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -304,9 +381,7 @@ public class ConsultaOS extends javax.swing.JFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnProcurar;
     private javax.swing.JButton btnSave;
-    private javax.swing.JComboBox cbStatus;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

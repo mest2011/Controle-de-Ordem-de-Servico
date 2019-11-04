@@ -37,13 +37,30 @@ public class SubstituirCaracteres {
         
         return str;
     }
-    
+    public String tiraBarra(String data){
+        String[] nulos = {"/"};
+	String str = data;
+
+	for (String n:nulos)
+		str = str.replaceAll(n, "");
+        
+        return str;
+    }
+    public String tiraPonto(String data){
+        String[] nulos = {"."};
+	String str = data;
+
+	for (String n:nulos)
+		str = str.replaceAll(n, "");
+        
+        return str;
+    }
     public String colocaData(String data){
         String[] nulos = {"-"};
 	String str = data;
 
 	for (String n:nulos)
-		str = str.replaceAll(n, "/");
+		str = str.replaceAll(n, "");
 
         return str;
     }
